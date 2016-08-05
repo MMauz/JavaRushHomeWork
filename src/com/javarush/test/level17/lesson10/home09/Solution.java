@@ -1,5 +1,6 @@
 package com.javarush.test.level17.lesson10.home09;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +16,53 @@ import java.util.List;
 Метод joinData должен вызываться в main. Все исключения обработайте в методе main.
 */
 
-public class Solution {
+public class Solution
+{
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CorruptedDataException
+    {
+        try
+        {
+            BufferedReader readerConsole = new BufferedReader(new InputStreamReader(System.in));
+
+            String filenameForAllLines = readerConsole.readLine();
+            String filenameForRemovesLines = readerConsole.readLine();
+            readerConsole.close();
+
+
+            BufferedReader readerFile = new BufferedReader(new FileReader(filenameForAllLines));
+
+            String line;
+            while ((line = readerFile.readLine()) != null)
+            {
+                allLines.add(line);
+            }
+
+            readerFile = new BufferedReader(new FileReader(filenameForRemovesLines));
+            while ((line = readerFile.readLine()) != null)
+            {
+                forRemoveLines.add(line);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        new Solution().joinData();
     }
 
-    public void joinData () throws CorruptedDataException {
+    public void joinData() throws CorruptedDataException {
+
+
+        if (allLines.containsAll(forRemoveLines)) {
+            allLines.removeAll(forRemoveLines);
+        } else {
+            allLines.clear();
+            throw new CorruptedDataException();
+        }
 
     }
 }

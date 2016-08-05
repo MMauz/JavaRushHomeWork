@@ -11,27 +11,26 @@ public class Solution {
     public Solution append(CharSequence s) {
         synchronized (Solution.class) {
             if (s == null) {
-                synchronized (this) {
+
                     s = "null";
-                }
             }
 
             if (s instanceof String) {
-                synchronized (this) {
+
                     return this.append((String) s);
-                }
+
             }
 
             if (s instanceof Solution) {
-                synchronized (this) {
+
                     return this.appendThis((Solution) s);
-                }
+
             }
         }
         return this.append(s);
     }
 
-    public synchronized Solution appendThis(Solution s) {
+    public Solution appendThis(Solution s) {
         //do something here....
         return this;
     }
