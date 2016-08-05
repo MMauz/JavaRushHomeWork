@@ -91,6 +91,7 @@ public class Solution
             person = Person.createFemale(name, stringToDate(date));
         }
         allPeople.add(person);
+        System.out.println(allPeople.indexOf(person));
     }
 
     public static void update(String id, String name, String sex, String date)
